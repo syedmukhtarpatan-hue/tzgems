@@ -26,6 +26,10 @@
 
 ## Current scope
 
-Only version-control setup has been requested so far. Do not begin the TZ GEMS
-website implementation until the user asks to start it. See `VERSION_CONTROL.md`
-for the beginner workflow and authentication options.
+The user requested the full editorial luxury TZ GEMS website on 11 October 2026.
+Build with Next.js App Router, TypeScript, Tailwind CSS, React, and Lucide icons.
+Use clearly labelled demonstration products and illustrative assets until real
+inventory and authorised brand photography are supplied. Never invent business
+credentials, testimonials, certificates, event attendance, prices, or contacts.
+The user selected demo mode for WhatsApp: do not display a fake phone number.
+See `VERSION_CONTROL.md` for the checkpoint and phase-publishing workflow.

@@ -77,3 +77,6 @@ temp/
 # This workspace's scratch files and generated deliverables
 /work/
 /outputs/
+.sites-runtime/
+.sites-checkout/
+.sites-checkout-*/
