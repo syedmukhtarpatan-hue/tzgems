@@ -1,0 +1,79 @@
+# Framework-neutral web defaults. Refine these when a framework is chosen.
+# Keep source files, package manifests, and dependency lockfiles in Git.
+
+# Dependencies
+node_modules/
+.pnp.*
+
+# Build output, framework caches, and test output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+.astro/
+.vite/
+.turbo/
+.parcel-cache/
+.cache/
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local hosting and deployment state
+.vercel/
+.netlify/
+.wrangler/
+
+# Environment values. Templates must contain placeholders, never real secrets.
+.env
+.env.*
+.envrc
+!.env.example
+!.env.*.example
+!.env.template
+!.env.sample
+
+# Credentials and private keys
+.aws/
+.ssh/
+.secrets/
+secrets/
+.git-credentials
+.netrc
+.npmrc
+.pypirc
+credentials.json
+secrets.json
+service-account*.json
+*-service-account.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local development files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+logs/
+*.pid
+*.pid.lock
+*.swp
+*.swo
+*~
+tmp/
+temp/
+.tmp/
+
+# This workspace's scratch files and generated deliverables
+/work/
+/outputs/
