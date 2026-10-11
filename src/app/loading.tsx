@@ -1,0 +1,1 @@
+export default function Loading(){return <main id="main-content" className="wrap state-page" aria-busy="true"><p className="eyebrow">TZ GEMS</p><h1>A closer<br/><em>look awaits.</em></h1><p role="status">Preparing your page…</p></main>;}
