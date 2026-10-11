@@ -4,12 +4,13 @@
 
 - Use `syedmukhtarpatan-hue/tzgems` on GitHub. The local remote is `origin`.
 - Work on `staging`. Save new designs and major changes in descriptive commits.
-- The user authorized publishing all completed, checked phases to `main` on
-  11 October 2026. This supersedes the earlier instruction to request approval
-  before each promotion to `main`. No repeated confirmation is needed.
+- Work exclusively on `staging`. The user's latest instruction supersedes all
+  earlier authorizations to publish completed phases automatically to `main`.
+- Keep `main` as the stable production branch. Never merge or push development
+  changes to `main` without the user's explicit approval.
 - At phase completion, review the changes, run the relevant available checks,
   inspect tracked and staged files for secrets, commit the phase, and publish
-  all intended source/configuration/documentation changes to GitHub `main`.
+  all intended source/configuration/documentation changes to GitHub `staging`.
 - Keep `staging` aligned with the completed phase, then continue development
   there. Do not publish unfinished phases or changes with failed checks.
 - Use the connected GitHub app when terminal Git authentication is unavailable.
@@ -32,4 +33,6 @@ Use clearly labelled demonstration products and illustrative assets until real
 inventory and authorised brand photography are supplied. Never invent business
 credentials, testimonials, certificates, event attendance, prices, or contacts.
 The user selected demo mode for WhatsApp: do not display a fake phone number.
+Do not ask for the WhatsApp number again. Preserve the original local history,
+including the four local records from the initial GitHub connection.
 See `VERSION_CONTROL.md` for the checkpoint and phase-publishing workflow.

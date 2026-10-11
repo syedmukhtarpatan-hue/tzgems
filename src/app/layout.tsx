@@ -4,6 +4,9 @@ import "@fontsource-variable/cormorant-garamond/wght-italic.css";
 import "@fontsource-variable/manrope";
 import "./globals.css";
 import { brand } from "@/content/brand";
+import { EnquiryProvider } from "@/components/Enquiry";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.siteUrl),
@@ -15,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><a className="skip-link" href="#main-content">Skip to content</a>{children}</body></html>;
+  return <html lang="en"><body><a className="skip-link" href="#main-content">Skip to content</a><EnquiryProvider><Header/>{children}<Footer/></EnquiryProvider></body></html>;
 }

@@ -3,16 +3,16 @@
 Git saves named checkpoints of your files. Each checkpoint is a commit, with a
 short identifier such as `abc1234`. A branch is a named line of development.
 
-This setup contains no website implementation. No framework has been chosen yet.
+The website uses Next.js App Router, React, TypeScript, and Tailwind CSS.
 The `.gitignore` covers common web dependencies, builds, environment values,
-credentials, and local development files. Refine it when the framework is chosen.
+credentials, and local development files.
 
 ## The two branches
 
-- `main`: completed, checked phases ready for production. The first phase contains
-  only the repository setup. The user has authorized publishing each completed
-  phase to this branch without asking again.
-- `staging`: the latest development version. Start normal work on this branch.
+- `main`: the stable production branch. Merging or pushing changes here always
+  requires the user's explicit approval.
+- `staging`: all current development work and completed development phases.
+  Work exclusively here until the user changes this instruction.
 
 New designs and major changes should have separate, descriptive commits, for
 example `Add emerald collection layout` or `Refine mobile product navigation`.
@@ -85,27 +85,20 @@ commits there. Ask Codex to help preview it using the framework once one exists.
 ## Restore a previous design without losing history
 
 First commit your current work and confirm `git status` is clean. To undo one
-specific design commit, create a new branch from `staging` and make a new commit
-that reverses it:
+specific design commit, stay on `staging` and make a new commit that reverses it:
 
 ```sh
-git switch -c restore/undo-design staging
+git switch staging
 git revert COMMIT_TO_UNDO
 git status
 ```
 
-Replace `COMMIT_TO_UNDO` with the identifier from the log. Use a new, descriptive
-branch name if that name already exists. Review and test the result before
-bringing it back into development:
-
-```sh
-git switch staging
-git merge --ff-only restore/undo-design
-```
+Replace `COMMIT_TO_UNDO` with the identifier from the log. Review and test the
+result before publishing the restore to GitHub `staging`.
 
 A revert preserves the original commit and records its reversal. To restore an
-entire older checkpoint across multiple commits, use a separate working folder
-and a new restore branch, then record the restored files as a new commit. Ask
+entire older checkpoint across multiple commits, preview it in a separate working
+folder, then record the selected restored files as a new commit on `staging`. Ask
 Codex to perform that restore after you select the checkpoint; preserve the
 latest version and review the restored design before merging it into `staging`.
 
@@ -113,44 +106,43 @@ If a revert or merge reports conflicts, stop and ask for help. A conflicted
 revert can be cancelled with `git revert --abort`. Do not use reset, clean,
 force-push, or amend/rebase existing commits to restore a design.
 
-## Publish each completed phase to main
+## Publish completed development phases to staging
 
-On 11 October 2026, you authorized pushing all code to `main` after each phase is
-complete. This replaces the earlier requirement for a separate approval before
-every promotion. The same instruction is saved in `AGENTS.md` for future work.
+The latest user instruction is to work exclusively on `staging` and push completed
+development phases to `staging`. It revokes earlier permission to publish phases
+automatically to `main`. This rule is also saved in `AGENTS.md`.
 
 Finish the phase on `staging`, review the changes, preview the design when one
 exists, run the relevant available checks, check for secrets, and save a
 descriptive commit. A phase with unfinished work or failed checks is not ready
-for `main`. Upload intended source, configuration, and documentation; keep ignored
+to publish. Upload intended source, configuration, and documentation; keep ignored
 dependencies, builds, credentials, and local artifacts out of GitHub.
 
 With authenticated terminal Git, first fetch and inspect remote changes. If
-`origin/main` is already included in `staging` and the working folder is clean,
-promote the completed phase and push both branches:
+`origin/staging` is already included in `staging` and the working folder is clean,
+push the completed phase:
 
 ```sh
 git fetch origin
 git status
 git diff main..staging
 git log --oneline main..staging
-git merge-base --is-ancestor origin/main staging
-git switch main
-git merge --ff-only staging
-git push origin main
-git switch staging
+git merge-base --is-ancestor origin/staging staging
 git push origin staging
 git status
 ```
 
 Run the commands in order and stop if any command fails. If remote changes are
 not included in `staging`, inspect and integrate them with an ordinary merge
-before promotion. If branches diverge or GitHub rejects a push, investigate;
-never force-push or bypass branch protections. Return to `staging` after publishing.
+before pushing. If branches diverge or GitHub rejects a push, investigate;
+never force-push or bypass branch protections. Stay on `staging`.
+
+Production promotion is a separate step. Review the finished staging version with
+the user and get explicit approval before merging or pushing anything to `main`.
 
 The connected GitHub app can also publish a phase when terminal authentication
-is unavailable. Codex reads the remote head, uploads the intended files, advances
-the branch without forcing it, and verifies the published contents. This is a
+is unavailable. Codex reads the remote staging head, uploads the intended files,
+advances only `staging` without forcing it, and verifies the published contents. This is a
 phase-completion workflow carried out during our work, not a background scheduler.
 Website deployment remains a separate action.
 
@@ -163,7 +155,7 @@ default branch. No new GitHub repository was created.
 
 The GitHub app is authenticated as `syedmukhtarpatan-hue` and has write access.
 The selected repository was public when checked. You instructed Codex to use this
-repository and publish completed phases to `main`; no visibility change was made.
+repository and publish completed phases to `staging`; no visibility change was made.
 
 GitHub CLI (`gh`) was unavailable, and terminal Git authentication was not set up.
 The app connection can upload project files without installing `gh`. Its API
@@ -173,8 +165,8 @@ commits, and integrate them with an ordinary merge. For the first connection of
 two independently initialized histories, use an explicitly reviewed merge with
 `--allow-unrelated-histories` once; do not reset either history.
 
-After connector publication, compare `git diff origin/main main` and
-`git diff origin/staging staging`: empty output means the tracked files match.
+After connector publication, compare `git diff origin/staging staging`:
+empty output means the tracked development files match.
 Local branches can still show extra local commits. Uploading those exact original
 commit records requires authenticated terminal Git. A later ordinary push can
 upload them once the remote commits are ancestors of the local branch.
@@ -194,10 +186,9 @@ GitHub credentials, answer **Yes**. Do not share tokens or passwords in this cha
 Tell Codex when sign-in is complete. Codex can then recheck the remote's history
 and upload the preserved local commit records with an ordinary push.
 
-After authentication and verification, the first push of each branch is:
+After authentication and verification, set up the staging push if needed:
 
 ```sh
-git push --set-upstream origin main
 git push --set-upstream origin staging
 ```
 
