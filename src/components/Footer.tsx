@@ -1,7 +1,66 @@
+import { whatsappConfigured } from "@/lib/whatsapp";
 import Link from "next/link";
-import { ArrowUpRight, Camera } from "lucide-react";
+import { Globe2, Camera, MapPin, MessageCircle } from "lucide-react";
 import { brand, navigation } from "@/content/brand";
+import { Brand } from "./Brand";
 import { EnquiryButton } from "./Enquiry";
 export function Footer() {
-  return <footer className="site-footer wrap"><div className="footer-top"><div className="footer-brand"><Link href="/" className="wordmark"><span>TZ GEMS<span className="wordmark-dot">.</span></span><small>The Tanzanite Guy</small></Link><p>A singular passion for Tanzanite.<br/>Bangkok, Thailand · Since 1996.</p></div><div className="footer-column"><h2>Explore</h2>{navigation.slice(1).map(link => <Link href={link.href} key={link.label}>{link.label}</Link>)}</div><div className="footer-column"><h2>The gemstones</h2><Link href="/gemstones/?category=rough">Rough Tanzanite</Link><Link href="/gemstones/?category=cut-polished">Cut & polished</Link><Link href="/gemstones/?treatment=heated">Heated Tanzanite</Link><Link href="/gemstones/?treatment=unheated">Unheated Tanzanite</Link></div><div className="footer-column"><h2>In conversation</h2><a href={brand.instagram} target="_blank" rel="noopener noreferrer"><Camera size={14}/> Instagram <ArrowUpRight size={12}/></a><EnquiryButton className="footer-contact">WhatsApp {brand.whatsappNumber ? "" : "(demo)"}<ArrowUpRight size={12}/></EnquiryButton>{brand.email && <a href={`mailto:${brand.email}`}>{brand.email}</a>}<span>Bangkok, Thailand</span></div></div><div className="footer-bottom"><span>© {new Date().getUTCFullYear()} TZ GEMS. All rights reserved.</span><span>Worldwide enquiries welcome.</span><Link href="/privacy-policy/">Privacy policy · draft</Link></div></footer>;
+  return (
+    <footer className="site-footer">
+      <div className="wrap">
+        <div className="footer-top">
+          <div>
+            <Brand />
+            <p>
+              Tanzanite in all its forms.
+              <br />
+              Bangkok specialists since 1996.
+            </p>
+          </div>
+          <div className="footer-column">
+            <h2>Explore</h2>
+            {navigation
+              .filter((x) => x.label !== "Home" && x.label !== "Tanzanite")
+              .map((x) => (
+                <Link key={x.label} href={x.href}>
+                  {x.label}
+                </Link>
+              ))}
+          </div>
+          <div className="footer-column">
+            <h2>The Collection</h2>
+            <Link href="/gemstones/?category=cut-polished">Cut Gemstones</Link>
+            <Link href="/gemstones/?category=crystals">Crystals</Link>
+            <Link href="/gemstones/?category=rough">Rough Stones</Link>
+          </div>
+          <div className="footer-column">
+            <h2>Connect with us</h2>
+            <span>
+              <MapPin />
+              Bangkok, Thailand
+            </span>
+            <span>
+              <Globe2 />
+              Worldwide shipping
+            </span>
+            <a href={brand.instagram} target="_blank" rel="noopener noreferrer">
+              <Camera />
+              @tzgems_bkk
+            </a>
+            <EnquiryButton className="footer-contact">
+              <MessageCircle />
+              WhatsApp{!whatsappConfigured && " · demo"}
+            </EnquiryButton>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>
+            © {new Date().getUTCFullYear()} TZ GEMS. All rights reserved.
+          </span>
+          <span>Design preview · illustrative inventory</span>
+          <Link href="/privacy-policy/">Privacy Policy</Link>
+        </div>
+      </div>
+    </footer>
+  );
 }

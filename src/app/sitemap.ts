@@ -1,9 +1,18 @@
-import type { MetadataRoute } from 'next';
-import { brand } from '@/content/brand';
-import { products } from '@/content/products';
-export const dynamic='force-static';
-export default function sitemap():MetadataRoute.Sitemap {
-  // Demo pages remain out of search engines until approved for production.
+import type { MetadataRoute } from "next";
+import { brand } from "@/content/brand";
+import { products } from "@/content/products";
+export const dynamic = "force-static";
+export default function sitemap(): MetadataRoute.Sitemap {
   if (!brand.indexable) return [];
-  return [{url:`${brand.siteUrl}/`,priority:1},{url:`${brand.siteUrl}/gemstones/`,priority:.9},...products.filter(product=>!product.demonstration).map(product=>({url:`${brand.siteUrl}/gemstones/${product.slug}/`,priority:.7}))];
+  return [
+    "",
+    "gemstones/",
+    "our-story/",
+    "events/",
+    "contact/",
+    "privacy-policy/",
+    ...products
+      .filter((p) => !p.demonstration)
+      .map((p) => `gemstones/${p.slug}/`),
+  ].map((path) => ({ url: `${brand.siteUrl}/${path}` }));
 }

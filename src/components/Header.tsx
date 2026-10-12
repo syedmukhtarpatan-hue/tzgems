@@ -1,16 +1,100 @@
 "use client";
+import { wrapDialogFocus } from "@/lib/dialog";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { navigation } from "@/content/brand";
-import { EnquiryButton } from "./Enquiry";
+import { useRef, useState } from "react";
+import {
+  ArrowRight,
+  Globe2,
+  Camera,
+  MapPin,
+  Menu,
+  Search,
+  X,
+} from "lucide-react";
+import { brand, navigation } from "@/content/brand";
+import { Brand } from "./Brand";
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const menu = useRef<HTMLDialogElement>(null);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 24); window.addEventListener("scroll", onScroll, { passive: true }); return () => window.removeEventListener("scroll", onScroll); }, []);
-  function closeMenu() { menu.current?.close(); }
-  return <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}><div className="wrap header-inner"><Link href="/" className="wordmark" aria-label="TZ GEMS home"><span>TZ GEMS<span className="wordmark-dot">.</span></span><small>The Tanzanite Guy</small></Link><nav className="desktop-nav" aria-label="Main navigation">{navigation.map(item => <Link key={item.label} href={item.href} aria-current={item.href === pathname || item.href === `${pathname}/` ? "page" : undefined}>{item.label}</Link>)}</nav><EnquiryButton className="header-enquiry">Let’s talk <ArrowUpRight size={16}/></EnquiryButton><button className="menu-toggle icon-button" aria-label="Open navigation menu" aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => { menu.current?.showModal(); setMenuOpen(true); }}><Menu size={24}/></button></div><dialog id="mobile-navigation" ref={menu} className="mobile-menu" aria-label="Navigation menu" onClose={() => setMenuOpen(false)} onClick={event => { if (event.target === event.currentTarget) closeMenu(); }}><div className="mobile-menu-inner"><button className="icon-button" onClick={closeMenu} aria-label="Close navigation menu"><X/></button><p className="eyebrow">TZ GEMS · Bangkok</p><nav aria-label="Mobile navigation">{navigation.map((item, index) => <Link onClick={closeMenu} key={item.label} href={item.href}><span>0{index + 1}</span>{item.label}<ArrowUpRight size={20}/></Link>)}</nav><p className="mobile-menu-note">A closer look at Tanzanite.<br/>Since 1996.</p></div></dialog></header>;
+  function close() {
+    menu.current?.close();
+  }
+  const links = navigation.map((item) => (
+    <Link
+      key={item.label}
+      href={item.href}
+      aria-current={item.href === pathname ? "page" : undefined}
+      onClick={close}
+    >
+      {item.label}
+    </Link>
+  ));
+  return (
+    <header className="site-header">
+      <div className="wrap header-inner">
+        <button
+          className="icon-button menu-toggle"
+          aria-label="Open navigation menu"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          onClick={() => {
+            menu.current?.showModal();
+            setOpen(true);
+          }}
+        >
+          <Menu size={23} />
+        </button>
+        <Brand />
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {links}
+        </nav>
+        <Link className="button primary header-contact" href="/contact/">
+          Contact Us <ArrowRight size={15} />
+        </Link>
+        <Link
+          className="icon-button mobile-search"
+          href="/gemstones/?search=1"
+          aria-label="Search gemstones"
+        >
+          <Search size={22} />
+        </Link>
+      </div>
+      <dialog
+        onKeyDown={wrapDialogFocus}
+        ref={menu}
+        id="mobile-navigation"
+        className="mobile-menu"
+        aria-label="Navigation menu"
+        onClose={() => setOpen(false)}
+      >
+        <div className="mobile-menu-header">
+          <Brand />
+          <button
+            className="icon-button"
+            onClick={close}
+            aria-label="Close navigation menu"
+          >
+            <X />
+          </button>
+        </div>
+        <nav aria-label="Mobile navigation">{links}</nav>
+        <div className="menu-contact">
+          <span>
+            <MapPin />
+            Bangkok, Thailand
+          </span>
+          <span>
+            <Globe2 />
+            Worldwide shipping
+          </span>
+          <a href={brand.instagram} target="_blank" rel="noopener noreferrer">
+            <Camera />
+            @tzgems_bkk
+          </a>
+        </div>
+      </dialog>
+    </header>
+  );
 }

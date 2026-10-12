@@ -1,26 +1,160 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowUpRight, MessageCircle } from 'lucide-react';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { EnquiryButton } from '@/components/Enquiry';
-import { ImageGallery } from '@/components/ImageGallery';
-import { ProductCard } from '@/components/ProductCard';
-import { certifications } from '@/content/certifications';
-import { products, findProduct, colourLabel } from '@/content/products';
+import { whatsappConfigured } from "@/lib/whatsapp";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowRight, FileCheck2, Globe2, MessageCircle } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { EnquiryButton } from "@/components/Enquiry";
+import { ImageGallery } from "@/components/ImageGallery";
+import { ProductCard } from "@/components/ProductCard";
+import { ProductTabs } from "@/components/ProductTabs";
+import { products, findProduct, colourLabel } from "@/content/products";
+import { certifications } from "@/content/certifications";
 export const dynamicParams = false;
-export function generateStaticParams() { return products.map(({slug})=>({slug})); }
-type Props = {params:Promise<{slug:string}>};
-export async function generateMetadata({params}:Props):Promise<Metadata> {
-  const {slug}=await params; const product=findProduct(slug);
-  if(!product) return {title:'Gemstone not found',robots:{index:false,follow:false}};
-  const description=`${product.name} · ${product.reference}. ${product.demonstration ? 'An illustrative Tanzanite design study. Enquire about similar genuine options with TZ GEMS, Bangkok.' : product.description}`;
-  return {title:`${product.name} — ${product.reference}`,description,alternates:{canonical:`/gemstones/${slug}/`},openGraph:{title:`${product.name} | TZ GEMS`,description,url:`/gemstones/${slug}/`,images:[{url:product.images[0].src,width:product.images[0].width,height:product.images[0].height,alt:product.images[0].alt}]}};
+export function generateStaticParams() {
+  return products.map(({ slug }) => ({ slug }));
 }
-export default async function ProductPage({params}:Props) {
-  const {slug}=await params; const product=findProduct(slug); if(!product) notFound();
-  const reports=certifications.filter(report=>product.certificateIds?.includes(report.id) && report.productReference===product.reference);
-  const related=products.filter(item=>item.slug!==slug).sort((a,b)=>Number(b.category===product.category)-Number(a.category===product.category)).slice(0,3);
-  const details=[['Reference',product.reference],['Category',product.category==='rough'?'Rough Tanzanite':'Cut & polished'],['Shape',product.shape],['Colour',colourLabel(product.colour)],['Weight',product.carats!==undefined?`${product.carats.toFixed(2)} ct`:undefined],['Dimensions',product.dimensions],['Treatment',product.treatment==='heated'?'Heated':product.treatment==='unheated'?'Unheated':undefined],['Availability',product.demonstration?'Demonstration only':product.availability]];
-  return <main id="main-content"><div className="wrap product-page"><Breadcrumbs items={[{name:'Home',href:'/'},{name:'Gemstones',href:'/gemstones/'},{name:product.name,href:`/gemstones/${slug}/`}]}/><div className="product-detail"><div><ImageGallery images={product.images} label={product.name}/>{product.videos?.map(video=><figure className="product-video" key={video.src}><video controls muted playsInline preload="metadata" poster={video.poster} aria-label={video.label}><source src={video.src}/>Your browser does not support embedded video. <a href={video.src}>Open video</a></video><figcaption>{video.label}</figcaption></figure>)}</div><div className="product-information"><Link href="/gemstones/" className="back-link"><ArrowLeft size={13}/> Back to the collection</Link><p className="eyebrow">{product.reference} · {product.demonstration?'An illustrative study':'Tanzanite'}</p><h1>{product.name.split(' ').slice(0,-1).join(' ')}<br/><em>{product.name.split(' ').slice(-1)}</em></h1>{product.demonstration && <p className="demo-notice">Demonstration only. This image does not represent a gemstone for sale. Enquire about similar genuine options.</p>}<p className="product-description">{product.description}</p><dl className="specifications">{details.filter(([,value])=>value!==undefined).map(([name,value])=><div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl><EnquiryButton subject={product} className="button button-blue product-cta"><MessageCircle size={17}/>{product.demonstration?'Enquire about this style':'Enquire about this gemstone'}<ArrowUpRight size={16}/></EnquiryButton><p className="content-note">WhatsApp demo mode · prepare an enquiry and contact us on Instagram.</p>{product.demonstration && <p className="product-disclosure">Weight, dimensions, treatment, and certification are omitted because they have not been verified. The name and colour describe the illustration.</p>}</div></div>{reports.length > 0 && <section className="product-reports section-space" aria-labelledby="reports-title"><p className="eyebrow">Supporting details</p><h2 id="reports-title">Individual <em>Reports.</em></h2><div className="report-grid">{reports.map(report=><article key={report.id}><ImageGallery images={report.images} label={report.title}/><h3>{report.title}</h3><p>{report.description}</p>{report.laboratory && <p>Laboratory: {report.laboratory}</p>}{report.reportNumber && <p>Report reference: {report.reportNumber}</p>}</article>)}</div></section>}<section className="related-products section-space" aria-labelledby="related-title"><div className="section-heading"><div><p className="eyebrow">Continue exploring</p><h2 id="related-title">Another <em>Perspective.</em></h2></div><Link href="/gemstones/" className="text-link">View all gemstones <ArrowUpRight size={16}/></Link></div><div className="product-grid">{related.map(item=><ProductCard key={item.slug} product={item}/>)}</div></section></div></main>;
+type Props = { params: Promise<{ slug: string }> };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = findProduct(slug);
+  if (!product) return { title: "Gemstone not found" };
+  const description = `Explore ${product.name}, reference ${product.reference}. Illustrative design study; enquire about comparable genuine Tanzanite with TZ GEMS.`;
+  return {
+    title: product.name,
+    description,
+    alternates: { canonical: `/gemstones/${slug}/` },
+    openGraph: {
+      title: `${product.name} | TZ GEMS`,
+      description,
+      url: `/gemstones/${slug}/`,
+    },
+  };
+}
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
+  const product = findProduct(slug);
+  if (!product) notFound();
+  const reports = certifications.filter(
+    (report) =>
+      product.certificateIds?.includes(report.id) &&
+      report.productReference === product.reference,
+  );
+  const related = products
+    .filter((item) => item.slug !== slug)
+    .sort(
+      (a, b) =>
+        Number(b.category === product.category) -
+        Number(a.category === product.category),
+    )
+    .slice(0, 3);
+  const details = [
+    [
+      "Carat Weight",
+      product.carats !== undefined
+        ? `${product.carats.toFixed(2)} ct`
+        : "Not supplied",
+    ],
+    ["Shape", product.shape || "Not supplied"],
+    ["Colour", colourLabel(product.colour)],
+    [
+      "Treatment",
+      product.treatment === "heated"
+        ? "Heated"
+        : product.treatment === "unheated"
+          ? "Unheated"
+          : "Not supplied",
+    ],
+    ["Dimensions", product.dimensions || "Not supplied"],
+    [
+      "Certification",
+      reports.length
+        ? reports.map((r) => r.title).join(", ")
+        : "No report supplied",
+    ],
+    [
+      "Availability",
+      product.demonstration ? "Demonstration only" : product.availability,
+    ],
+  ];
+  return (
+    <main id="main-content" className="wrap page-content product-page">
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Collection", href: "/gemstones/" },
+          { name: product.shape || product.name, href: `/gemstones/${slug}/` },
+        ]}
+      />
+      <div className="product-detail-grid">
+        <ImageGallery images={product.images} label={product.name} />
+        <div className="product-info">
+          <h1>{product.name}</h1>
+          <p className="reference">Ref: {product.reference}</p>
+          <dl className="specifications">
+            {details.map(([label, value]) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <EnquiryButton
+            subject={product}
+            className="button primary product-whatsapp"
+          >
+            Enquire on WhatsApp <ArrowRight size={16} />
+          </EnquiryButton>
+          <Link
+            href={`/contact/?product=${encodeURIComponent(product.reference)}`}
+            className="button outline"
+          >
+            Request More Information
+          </Link>
+          <p className="demo-note">
+            {whatsappConfigured
+              ? "Illustrative gemstone. Enquire about comparable genuine stones."
+              : "Illustrative gemstone · WhatsApp demo mode. No message is sent."}
+          </p>
+        </div>
+      </div>
+      <div className="service-grid">
+        <div>
+          <FileCheck2 />
+          <span>
+            <strong>Individual Documentation</strong>
+            <small>Ask about reports for your chosen stone.</small>
+          </span>
+        </div>
+        <div>
+          <Globe2 />
+          <span>
+            <strong>Worldwide Shipping</strong>
+            <small>Discuss delivery to your destination.</small>
+          </span>
+        </div>
+        <div>
+          <MessageCircle />
+          <span>
+            <strong>Personalised Enquiry</strong>
+            <small>Request current images and individual details.</small>
+          </span>
+        </div>
+      </div>
+      <ProductTabs description={product.description} />
+      <section className="related-section">
+        <div className="section-heading">
+          <h2>You may also like</h2>
+          <Link href="/gemstones/" className="text-link">
+            View Collection <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="product-grid">
+          {related.map((item) => (
+            <ProductCard key={item.slug} product={item} />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
 }

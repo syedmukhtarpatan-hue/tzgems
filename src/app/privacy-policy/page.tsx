@@ -1,5 +1,77 @@
-import type { Metadata } from 'next';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { brand } from '@/content/brand';
-export const metadata:Metadata={title:'Privacy Policy — Draft for Review',description:'Draft privacy information for the TZ GEMS demonstration showroom. Requires business and hosting review before production publication.',alternates:{canonical:'/privacy-policy/'},robots:{index:false,follow:false}};
-export default function PrivacyPage(){return <main id="main-content" className="wrap privacy-page"><Breadcrumbs items={[{name:'Home',href:'/'},{name:'Privacy policy',href:'/privacy-policy/'}]}/><div className="privacy-intro"><p className="eyebrow">Website information · Draft</p><h1>Your privacy,<br/><em>considered.</em></h1><p className="demo-notice">Draft privacy policy — requires TZ GEMS approval and review of the final hosting and business practices before public launch. Prepared 11 October 2026.</p></div><div className="privacy-copy"><section><h2>About this preview</h2><p>This website is an editorial catalogue for TZ GEMS in Bangkok, Thailand. It currently displays demonstration content. Business contact information and this policy will be completed before the production launch.</p></section><section><h2>Enquiries</h2><p>This version has no registration, checkout, payment processing, or enquiry submission form. In WhatsApp demo mode, your prepared message stays in your browser until you choose to copy it or share it yourself. Opening the contact dialog does not send a message.</p><p>If you contact TZ GEMS through Instagram, or through WhatsApp after it is configured, that service handles your information under its own privacy terms. TZ GEMS will need to confirm how enquiries are used, stored, retained, and deleted.</p></section><section><h2>Website data and storage</h2><p>No analytics, advertising trackers, marketing cookies, or account storage have been added to this build. Catalogue filters are stored in the page URL so you can bookmark a view. Do not enter private information into the catalogue search.</p><p>A hosting provider may process technical request information such as IP addresses, browser details, and access times. The provider, purposes, locations, and retention periods must be confirmed for the final deployment.</p></section><section><h2>External services</h2><p>Links to Instagram and, when activated, WhatsApp take you to independent services. Fonts and website imagery are served locally with the site. We have not embedded a social-media feed.</p></section><section><h2>Questions and requests</h2><p>You can reach the supplied business account at <a href={brand.instagram} target="_blank" rel="noopener noreferrer">@tzgems_bkk on Instagram</a>. A dedicated privacy contact, the responsible business entity, applicable rights, and the process for handling requests must be confirmed by TZ GEMS before launch.</p></section><section><h2>Before this becomes the final policy</h2><p>TZ GEMS should review and approve its actual contact handling, hosting providers, any international data transfers, retention periods, and privacy contact details. Update this draft whenever data collection or integrations change.</p></section></div></main>;}
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+export const metadata: Metadata = {
+  title: "Privacy Policy — Draft",
+  description:
+    "Editable privacy policy draft for the TZ GEMS catalogue design preview. Business review is required before launch.",
+  alternates: { canonical: "/privacy-policy/" },
+  robots: { index: false, follow: false },
+};
+export default function PrivacyPage() {
+  return (
+    <main id="main-content" className="wrap page-content">
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Privacy Policy", href: "/privacy-policy/" },
+        ]}
+      />
+      <article className="policy">
+        <p className="eyebrow">EDITABLE DRAFT · BUSINESS REVIEW REQUIRED</p>
+        <h1>Privacy Policy</h1>
+        <p>
+          This draft describes the current TZ GEMS design preview. It must be
+          reviewed and completed for the actual hosting service, business
+          contact details and applicable obligations before a public launch.
+        </p>
+        <h2>About this website</h2>
+        <p>
+          TZ GEMS is a Tanzanite gemstone business based in Bangkok, Thailand.
+          This catalogue lets visitors browse demonstration gemstones and
+          prepare enquiries.
+        </p>
+        <h2>Information in this preview</h2>
+        <p>
+          There is no account, checkout or contact submission form. Search and
+          filter selections are stored in the page URL. The enquiry preview
+          creates a message in your browser; it does not transmit that message
+          to TZ GEMS. Copying an enquiry uses your browser clipboard only when
+          you select that action.
+        </p>
+        <h2>External services</h2>
+        <p>
+          Instagram links take you to Instagram. When an official WhatsApp
+          number is configured, enquiry links will open WhatsApp with a prepared
+          message. Those services apply their own privacy policies. You choose
+          whether to send a message there.
+        </p>
+        <h2>Cookies, hosting and analytics</h2>
+        <p>
+          This implementation does not add advertising trackers or analytics
+          cookies. The chosen hosting provider may process connection
+          information or set necessary access cookies. The final policy must
+          identify the host, its practices, any retention periods and any
+          additional services enabled at launch.
+        </p>
+        <h2>Enquiry handling and your choices</h2>
+        <p>
+          Any handling of messages received through external services must be
+          documented by TZ GEMS, including retention, access requests and
+          deletion requests. These business practices have not yet been
+          supplied.
+        </p>
+        <h2>Contact and changes</h2>
+        <p>
+          Use the{" "}
+          <Link className="text-link" href="/contact/">
+            Contact page
+          </Link>{" "}
+          to reach TZ GEMS. A verified privacy contact, responsible legal
+          entity, postal address and effective date must be added before this
+          policy is finalised.
+        </p>
+      </article>
+    </main>
+  );
+}

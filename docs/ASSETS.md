@@ -49,3 +49,24 @@ Composition/framing: vertical 4:5 portrait image, gemstone fills about 50 percen
 Lighting/mood: soft directional side light, quiet editorial luxury, warm grey background with subtle natural falloff.
 Constraints: no text, no watermark, no logo, no people, no hands, no certificate, no business premises, no events, no extra jewels. This is an illustrative demonstration stone, not an actual TZ GEMS inventory item.
 ```
+
+
+## Approved-wireframe rebuild additions
+
+Generated with the built-in image-generation tool on 11 October 2026. These are
+illustrations, not official photography, real inventory, client records or event
+attendance. Original PNG files remain in `/workspace/generated_images/`. Only
+proportional resize/WebP compression was performed; source images were not edited.
+
+| Asset | Project file | Source |
+| --- | --- | --- |
+| Nine gemstone styles | `public/images/catalogue-illustration.webp` | `exec-723e38db-3a24-4969-9f29-49203a27372e.png` |
+| Emerald cut and rough hero | `public/images/tanzanite-hero.webp` | `exec-f2ee8d99-db4f-4c01-bca2-e115e49c2fe5.png` |
+| Inspection, process, consultations and Bangkok | `public/images/editorial-illustrations.webp` | `exec-b493b8b0-649a-413c-8dce-e0d361a7e1af.png` |
+
+The sheets are displayed through measured SVG windows so adjacent cells cannot
+bleed into cards and gemstone proportions remain intact. Demonstration captions
+identify the imagery. No logo or certification document was generated.
+
+The prior oval and rough files are obsolete in this rebuild; only the prior
+tweezers photograph is retained for the Our Story composition.

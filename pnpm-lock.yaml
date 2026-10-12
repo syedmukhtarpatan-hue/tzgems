@@ -8,11 +8,11 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/cormorant-garamond':
-        specifier: 5.3.0
+      '@fontsource/inter':
+        specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource-variable/manrope':
-        specifier: 5.3.0
+      '@fontsource/libre-baskerville':
+        specifier: ^5.3.0
         version: 5.3.0
       lucide-react:
         specifier: 1.55.0
@@ -190,11 +190,11 @@ packages:
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@fontsource-variable/cormorant-garamond@5.3.0':
-    resolution: {integrity: sha512-rgZJ/5w3hi60swAPnrOXpZf5wEH6NTrvm4H8D9Y4b1QIFUqlX14eM3QTMU/eAznjfh0eXpO1QUqsFhiy58aoMg==}
+  '@fontsource/inter@5.3.0':
+    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
 
-  '@fontsource-variable/manrope@5.3.0':
-    resolution: {integrity: sha512-6D5dgokHsWDDMtmXHznKa0hK229NN+1a4BLPmUCLqcO1Pw5EEhWY5RFt0AcXnVRAljFFPfRtLkJePQj6LSsV6g==}
+  '@fontsource/libre-baskerville@5.3.0':
+    resolution: {integrity: sha512-IA6OLq36/JWMX70Fha15sri2qWsijFh7hgdDXCRZHjKUHtWarLQoiGilvm7iMqm7HiYFEv9acF3+IuRHO9kUiA==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -2199,9 +2199,9 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@fontsource-variable/cormorant-garamond@5.3.0': {}
+  '@fontsource/inter@5.3.0': {}
 
-  '@fontsource-variable/manrope@5.3.0': {}
+  '@fontsource/libre-baskerville@5.3.0': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

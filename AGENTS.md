@@ -27,7 +27,11 @@
 
 ## Current scope
 
-The user requested the full editorial luxury TZ GEMS website on 11 October 2026.
+The user requested a complete rebuild against the final approved TZ GEMS
+wireframe on 11 October 2026. The former editorial design is obsolete.
+Do not deploy to production. Leave the rebuilt site ready for review on staging.
+Use white #FFFFFF, navy #111936, Libre Baskerville and Inter.
+See `docs/REBUILD.md` for current routes, content gaps and verification.
 Build with Next.js App Router, TypeScript, Tailwind CSS, React, and Lucide icons.
 Use clearly labelled demonstration products and illustrative assets until real
 inventory and authorised brand photography are supplied. Never invent business

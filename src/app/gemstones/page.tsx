@@ -1,7 +1,38 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Catalogue, CatalogueLoading } from '@/components/Catalogue';
-import { Closing } from '@/components/Closing';
-export const metadata: Metadata = {title:'Tanzanite Gemstone Collection', description:'Explore rough and cut Tanzanite styles with TZ GEMS in Bangkok. Filter the demonstration showroom and enquire directly with a specialist.',alternates:{canonical:'/gemstones/'},openGraph:{title:'Discover the Tanzanite Collection | TZ GEMS',description:'Explore a curated perspective on Tanzanite. Demonstration showroom.',url:'/gemstones/'}};
-export default function GemstonesPage() { return <main id="main-content"><div className="wrap catalogue-page"><Breadcrumbs items={[{name:'Home',href:'/'},{name:'Gemstones',href:'/gemstones/'}]}/><div className="catalogue-heading"><div><p className="eyebrow">The Tanzanite showroom</p><h1>Discover the<br/><em>Collection.</em></h1></div><div><p>A world of blue, in all its forms. Explore a shape, find a colour, and start a conversation.</p><p className="demo-notice">Demonstration collection · AI illustrations.<br/>These are design studies, not available inventory.</p></div></div><Suspense fallback={<CatalogueLoading/>}><Catalogue/></Suspense><noscript><p className="demo-notice">Enable JavaScript to filter the collection. Individual gemstone pages remain available through the homepage collection.</p></noscript></div><Closing/></main>; }
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Catalogue, CatalogueLoading } from "@/components/Catalogue";
+export const metadata: Metadata = {
+  title: "The Tanzanite Collection",
+  description:
+    "Explore cut Tanzanite gemstones, crystals and rough stones. Filter the TZ GEMS demonstration catalogue and prepare a personal enquiry.",
+  alternates: { canonical: "/gemstones/" },
+  openGraph: {
+    title: "The Tanzanite Collection | TZ GEMS",
+    description:
+      "Cut gemstones, crystals and rough stones from Bangkok specialists.",
+    url: "/gemstones/",
+  },
+};
+export default function CollectionPage() {
+  return (
+    <main id="main-content" className="wrap page-content">
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Collection", href: "/gemstones/" },
+        ]}
+      />
+      <div className="page-heading">
+        <h1>The Tanzanite Collection</h1>
+        <p>
+          Browse our selection of Tanzanite gemstones, crystals and rough
+          stones.
+        </p>
+      </div>
+      <Suspense fallback={<CatalogueLoading />}>
+        <Catalogue />
+      </Suspense>
+    </main>
+  );
+}

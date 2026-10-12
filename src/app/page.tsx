@@ -1,40 +1,202 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Gem, MapPin, ScanLine } from "lucide-react";
-import { Closing } from "@/components/Closing";
-import { EditorialImage } from "@/components/EditorialImage";
-import { EnquiryButton } from "@/components/Enquiry";
-import { ImageGallery } from "@/components/ImageGallery";
-import { ProductCard } from "@/components/ProductCard";
-import { Testimonials } from "@/components/Testimonials";
-import { categories, treatmentCategories } from "@/content/categories";
-import { certifications } from "@/content/certifications";
-import { copy } from "@/content/copy";
-import { events } from "@/content/events";
+import { ArrowRight } from "lucide-react";
 import { images } from "@/content/images";
+import { categories } from "@/content/categories";
 import { products } from "@/content/products";
-
+import { Photo } from "@/components/Photo";
+import { ProductCard } from "@/components/ProductCard";
+import { TrustStrip } from "@/components/TrustStrip";
+import { ClientCarousel } from "@/components/ClientCarousel";
+import { Closing } from "@/components/Closing";
 export default function HomePage() {
-  return <main id="main-content">
-    <section className="hero wrap" aria-labelledby="hero-title">
-      <div className="hero-copy"><p className="eyebrow"><span className="small-line"/>{copy.hero.eyebrow}</p><h1 id="hero-title">The Art of<br/><em>Tanzanite.</em></h1><p className="hero-description">{copy.hero.description}</p><div className="hero-actions"><Link className="button button-blue" href="/gemstones/">Explore Gemstones <ArrowUpRight size={17}/></Link><EnquiryButton className="text-link">Contact Our Specialist <ArrowUpRight size={15}/></EnquiryButton></div><div className="hero-signature"><span className="signature-line"/><span>The Tanzanite Guy<small>A singular passion. An extraordinary gemstone.</small></span></div></div>
-      <div className="hero-visual"><div className="hero-image-top"><span className="eyebrow">An exploration of blue</span><span className="eyebrow">01 / Tanzanite</span></div><EditorialImage image={images.oval} className="hero-image" priority/><span className="hero-side-note" aria-hidden="true">Colour. Character. Possibility.</span></div>
-      <a className="hero-discover eyebrow" href="#heritage">A closer look <ArrowDown size={14}/></a>
-    </section>
-
-    <section id="heritage" className="heritage wrap section-space" aria-labelledby="heritage-title"><div className="heritage-inner"><div className="heritage-mark"><span className="eyebrow">Our focus, since</span><span>1996</span></div><div><p className="eyebrow">The quiet confidence of experience</p><h2 id="heritage-title">Specialising in Tanzanite<br/><em>Since 1996.</em></h2><p>{copy.heritage.description}</p></div></div></section>
-
-    <section id="our-story" className="story wrap section-space" aria-labelledby="story-title"><div className="story-visual"><EditorialImage image={images.rough}/><span className="image-index" aria-hidden="true">I.</span></div><div className="story-copy"><p className="eyebrow">Our story · The Tanzanite Guy</p><h2 id="story-title">A Passion for<br/>Tanzanite,<br/><em>Since 1996.</em></h2>{copy.story.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}<EnquiryButton className="text-link">Begin a conversation <ArrowUpRight size={16}/></EnquiryButton><p className="content-note">Showroom and specialist photography will be added once supplied. Crystal imagery is illustrative.</p></div></section>
-
-    <section className="authenticity section-space" aria-labelledby="authenticity-title"><div className="wrap authenticity-inner"><div><p className="eyebrow">Clarity, from the beginning</p><h2 id="authenticity-title">Confidence in<br/><em>Every Detail.</em></h2><p>A meaningful gemstone conversation starts with clear information. Ask about a stone’s identity, treatment, individual characteristics, and any accompanying laboratory report.</p><p>Reports are specific to individual gemstones. We display a report only when it has been supplied and matched to that stone.</p><EnquiryButton className="text-link">Talk to us about a gemstone <ArrowUpRight size={16}/></EnquiryButton></div><div className="authenticity-detail">{certifications.length ? certifications.map(certificate => <div key={certificate.id}><ImageGallery images={certificate.images} label={certificate.title}/><h3>{certificate.title}</h3><p>{certificate.description}</p></div>) : <><ScanLine size={38} strokeWidth={1}/><span className="eyebrow">The finer details</span><h3>Details before<br/><em>decisions.</em></h3><div className="detail-row"><span>Identity & characteristics</span><span>01</span></div><div className="detail-row"><span>Treatment disclosure</span><span>02</span></div><div className="detail-row"><span>Reports, when available</span><span>03</span></div><p className="content-note">Certificate images await verified source material. No laboratory certification is claimed for demonstration pieces.</p></>}</div></div></section>
-
-    <section id="craftsmanship" className="craftsmanship wrap section-space" aria-labelledby="craft-title"><div className="section-heading"><div><p className="eyebrow">A study in transformation</p><h2 id="craft-title">The Art Behind<br/><em>Every Cut.</em></h2></div><p>From the natural architecture of a crystal to a considered arrangement of facets. An introduction to the journey of a cut gemstone.</p></div><div className="craft-images"><EditorialImage image={images.rough}/><div className="craft-connector" aria-hidden="true"><span/><Gem size={24} strokeWidth={1}/><span/><em>From possibility<br/>to perspective.</em></div><EditorialImage image={images.emerald}/></div><div className="process-steps">{copy.process.map(step => <div key={step.number}><span className="eyebrow">{step.number}</span><h3>{step.name}</h3><p>{step.text}</p></div>)}</div><p className="content-note craft-note">Illustrative sequence. Genuine cutting and polishing photography is awaiting approval. This overview does not imply in-house manufacturing.</p></section>
-
-    <section className="categories wrap section-space" aria-labelledby="category-title"><div className="section-heading"><div><p className="eyebrow">Different forms. One fascination.</p><h2 id="category-title">Explore <em>Tanzanite.</em></h2></div><Link href="/gemstones/" className="text-link">Explore all gemstones <ArrowUpRight size={16}/></Link></div><div className="category-grid">{categories.map((category, index) => <article className={`category category-${index + 1}`} key={category.id}><Link href={category.href} className="category-image" aria-label={`Explore ${category.name}`}><EditorialImage image={category.image}/><span className="category-number" aria-hidden="true">0{index + 1}</span></Link><div className="category-caption"><div><p className="eyebrow">{category.name}</p><h3><Link href={category.href}>{category.title}</Link></h3><p>{category.description}</p></div><Link href={category.href} className="icon-button" aria-label={`View ${category.name}`}><ArrowUpRight size={22}/></Link></div></article>)}</div><div className="treatment-links">{treatmentCategories.map(category => <Link key={category.name} href={category.href}><span><span className="eyebrow">Explore by treatment</span><strong>{category.name}</strong><small>{category.description}</small></span><ArrowUpRight size={22}/></Link>)}</div></section>
-
-    <section className="collection wrap section-space" aria-labelledby="collection-title"><div className="section-heading"><div><p className="eyebrow">A curated perspective</p><h2 id="collection-title">Discover the <em>Collection.</em></h2></div><Link href="/gemstones/" className="text-link">View the catalogue <ArrowUpRight size={16}/></Link></div><p className="collection-note">An illustrative preview of the showroom. These six demonstration studies are not available inventory. Enquire to explore genuine options.</p><div className="product-grid">{products.slice(0, 6).map(product => <ProductCard key={product.slug} product={product}/>)}</div></section>
-    <Testimonials/>
-
-    <section id="events" className="events wrap section-space" aria-labelledby="events-title"><div className="section-heading"><div><p className="eyebrow">Connections, near and far</p><h2 id="events-title">Beyond the <em>Showroom.</em></h2></div><p>A place for the people, conversations, and moments that connect our world of gemstones.</p></div>{events.some(event => event.confirmed) ? <div className="events-gallery">{events.filter(event => event.confirmed).map(event => <article key={event.id}><ImageGallery images={event.images} label={event.name}/><p className="eyebrow">{[event.location, event.date].filter(Boolean).join(" · ")}</p><h3>{event.name}</h3><p>{event.description}</p></article>)}</div> : <div className="event-placeholder"><div className="event-location"><MapPin size={28} strokeWidth={1}/><span className="eyebrow">Bangkok & beyond</span></div><div><h3>The next conversation<br/>could be <em>in person.</em></h3><p>Confirmed exhibition dates and authorised event photographs will appear here. Ask us about meeting opportunities.</p><EnquiryButton className="text-link">Stay in conversation <ArrowUpRight size={16}/></EnquiryButton></div><span className="event-symbol" aria-hidden="true">✳</span></div>}</section>
-    <Closing/>
-  </main>;
+  return (
+    <main id="main-content">
+      <section className="hero">
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <p className="eyebrow">BANGKOK · SINCE 1996</p>
+            <h1>
+              Tanzanite,
+              <br />
+              in its rarest light.
+            </h1>
+            <p>
+              Discover fine Tanzanite gemstones, crystals and rough stones from
+              Bangkok specialists.
+            </p>
+            <div className="button-row">
+              <Link href="/gemstones/" className="button primary">
+                Explore Collection <ArrowRight size={16} />
+              </Link>
+              <Link href="/contact/" className="button outline">
+                Contact Us
+              </Link>
+            </div>
+          </div>
+          <Photo image={images.hero} className="hero-image" priority />
+        </div>
+      </section>
+      <div className="wrap">
+        <TrustStrip />
+        <section className="section story-preview split" id="our-story">
+          <figure>
+            <Photo image={images.tweezers} />
+            <figcaption className="image-caption">
+              Illustrative gemstone photography
+            </figcaption>
+          </figure>
+          <div className="section-copy">
+            <p className="eyebrow">OUR STORY</p>
+            <h2>
+              One gemstone.
+              <br />A lifelong fascination.
+            </h2>
+            <p>
+              Specialising in Tanzanite since 1996, TZ GEMS brings together cut
+              gemstones, rough stones and crystals. Based in Bangkok, we connect
+              a passion for this remarkable gemstone with clients around the
+              world.
+            </p>
+            <Link href="/our-story/" className="text-link">
+              Read Our Story <ArrowRight size={16} />
+            </Link>
+          </div>
+        </section>
+        <section className="section categories-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">EXPLORE TANZANITE</p>
+              <h2>Beauty in every form.</h2>
+            </div>
+          </div>
+          <div className="category-grid">
+            {categories.map((category) => (
+              <Link
+                className="category-card"
+                href={category.href}
+                key={category.id}
+              >
+                <Photo image={category.image} />
+                <div>
+                  <h3>
+                    {category.name}
+                    <ArrowRight size={18} />
+                  </h3>
+                  <p>{category.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <p className="image-caption">
+            Illustrative images · explore styles and enquire about current
+            inventory
+          </p>
+        </section>
+        <section className="section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">SELECTED FOR A CLOSER LOOK</p>
+              <h2>The Collection</h2>
+            </div>
+            <Link href="/gemstones/" className="text-link">
+              View All Gemstones <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="product-grid featured-grid">
+            {products.slice(0, 4).map((product) => (
+              <ProductCard product={product} key={product.slug} />
+            ))}
+          </div>
+          <p className="image-caption">
+            Demonstration catalogue. Actual specifications and availability are
+            confirmed on enquiry.
+          </p>
+        </section>
+        <section
+          className="section split certification-section"
+          id="certification"
+        >
+          <div className="section-copy">
+            <p className="eyebrow">CERTIFICATION</p>
+            <h2>Confidence in Every Detail.</h2>
+            <p>
+              Every gemstone deserves a closer look. Ask about a stone’s
+              treatment, origin information and any applicable independent
+              gemological report.
+            </p>
+            <p>
+              Report availability is confirmed individually. This preview
+              contains no verified certificates or laboratory reports.
+            </p>
+            <Link href="/contact/" className="text-link">
+              Ask About Certification <ArrowRight size={16} />
+            </Link>
+          </div>
+          <figure>
+            <Photo image={images.inspection} />
+            <figcaption className="image-caption">
+              Illustrative inspection · not a certification report
+            </figcaption>
+          </figure>
+        </section>
+        <section className="section process-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">OUR PROCESS</p>
+              <h2>The Art Behind Every Cut.</h2>
+            </div>
+          </div>
+          <div className="process-grid">
+            {[
+              { name: "Rough Selection", image: images.rough },
+              { name: "Cutting & Shaping", image: images.cutting },
+              { name: "Polishing", image: images.polishing },
+              { name: "Finished Gemstone", image: images.oval },
+            ].map((stage, index) => (
+              <figure key={stage.name}>
+                <Photo image={stage.image} />
+                <figcaption>
+                  <span>{index + 1}.</span> {stage.name}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="image-caption">
+            An illustrative journey from rough material to a finished gemstone.
+          </p>
+        </section>
+        <ClientCarousel />
+        <section className="section events-preview">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">EVENTS & EXHIBITIONS</p>
+              <h2>Beyond the Showroom.</h2>
+            </div>
+            <Link href="/events/" className="text-link">
+              Explore Events <ArrowRight size={16} />
+            </Link>
+          </div>
+          <p className="section-intro">
+            Conversations, connections and a shared appreciation for Tanzanite.
+          </p>
+          <div className="events-grid">
+            {[
+              { image: images.consultation, title: "Gemstone conversations" },
+              { image: images.buyers, title: "A meeting of perspectives" },
+            ].map((item) => (
+              <Link href="/events/" className="event-card" key={item.title}>
+                <Photo image={item.image} />
+                <h3>
+                  {item.title}
+                  <ArrowRight size={16} />
+                </h3>
+                <p>Demonstration scene · event details to be supplied</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+      <Closing />
+    </main>
+  );
 }
